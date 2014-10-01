@@ -1,8 +1,10 @@
 #
-# Get coordination count from ____ output for each timestep
+# Get coordination count from LAMMPS custom dump command 
+#		(ID,x,y,z,coordination)  for each timestep
 #
 # Gonzalo Aguirre <graguirre@gmail.com>
 #
+
 import sys, getopt
 
 def usage():
@@ -20,7 +22,8 @@ def main(argv):
 	af = 0	# atoms falg
 	t = 0	# time
 	n = 0	# number of atoms
-	
+	mc = 5	# max coordination number
+
 	d = {}	# init dictionary
 	inputfile = ''
 
@@ -49,7 +52,7 @@ def main(argv):
 		if tf:
 			t = int(i)	# get timestep
 			tf = 0	# unset flag
-			d[t]=[0 for j in range(4)]
+			d[t]=[0 for j in range(mc)]
 		if i.find('ITEM: TIMESTEP') != -1:
 			tf = 1	# set falg
 	
@@ -68,7 +71,8 @@ def main(argv):
 		if i.find('ITEM: ATOMS') != -1:
 			af = 1
 	
-	print d
+	for i in d:
+		print i,' '.join(str(j) for j in d[i])
 
 if __name__ == "__main__":
 	main(sys.argv[1:])
