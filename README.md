@@ -11,4 +11,5 @@ $ git clone https://github.com/graguirre/Coord-LAMMPS coord
 and execute 
 
 $ cd coord
+
 $ python2 parser.py -i datafile.xyz
